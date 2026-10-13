@@ -1,0 +1,36 @@
+@if (tasks().length === 0) {
+  <app-empty-state message="Aucune tâche." />
+} @else {
+  <ul class="space-y-2">
+    @for (task of tasks(); track task.id) {
+      <li class="rounded-md border-l-4 px-3 py-2" [class]="statusBorder[task.status]">
+        <div class="flex items-center justify-between gap-2">
+          <span
+            class="text-sm font-medium text-gray-800"
+            [class.line-through]="task.status === 'Terminé'"
+          >
+            {{ task.title }}
+          </span>
+          <span class="rounded-full px-2 py-0.5 text-xs font-semibold" [class]="priorityBadge[task.priority]">
+            {{ task.priority }}
+          </span>
+        </div>
+        <div class="mt-1 flex items-center justify-between gap-2">
+          <p class="text-xs font-medium" [class]="statusText[task.status]">{{ task.status }}</p>
+          @if (showAssignee()) {
+            @if (assigneeName(task); as name) {
+              <p class="flex items-center gap-1 text-xs text-gray-600">
+                <svg class="size-3.5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M10 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 1 1 14 0H3Z" />
+                </svg>
+                {{ name }}
+              </p>
+            } @else {
+              <p class="text-xs italic text-gray-400">Non assignée</p>
+            }
+          }
+        </div>
+      </li>
+    }
+  </ul>
+}

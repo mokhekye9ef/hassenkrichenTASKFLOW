@@ -1,0 +1,9 @@
+<section>
+  <header class="mb-2 flex items-center justify-between gap-2">
+    <h3 class="text-sm font-semibold text-gray-800">{{ project().name }}</h3>
+    <span class="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+      {{ tasks().length }} {{ tasks().length > 1 ? 'tâches' : 'tâche' }}
+    </span>
+  </header>
+  <app-task-list [tasks]="tasks()" [showAssignee]="false" />
+</section>

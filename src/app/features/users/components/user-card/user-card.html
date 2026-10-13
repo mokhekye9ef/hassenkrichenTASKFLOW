@@ -1,0 +1,38 @@
+<article class="flex h-full flex-col rounded-xl bg-white p-5 shadow-md">
+  <header class="mb-4 flex items-start gap-3">
+    <div
+      class="flex size-11 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+      [class]="user().active ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-200 text-gray-500'"
+    >
+      {{ initials() }}
+    </div>
+    <div class="min-w-0 flex-1">
+      <h2 class="truncate text-lg font-semibold text-gray-900">{{ user().name }}</h2>
+      <p class="truncate text-sm text-gray-500">{{ user().email }}</p>
+      <p class="mt-0.5 text-xs font-medium text-indigo-700">{{ user().role }}</p>
+    </div>
+    <span
+      class="shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold"
+      [class]="user().active ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-600'"
+    >
+      {{ user().active ? 'Actif' : 'Inactif' }}
+    </span>
+  </header>
+
+  <div class="mb-4 grid grid-cols-3 gap-2 text-center">
+    @for (counter of counters(); track counter.label) {
+      <div class="rounded-lg px-2 py-2" [class]="counter.classes">
+        <p class="text-xl font-bold">{{ counter.count }}</p>
+        <p class="text-xs font-medium">{{ counter.label }}</p>
+      </div>
+    }
+  </div>
+
+  <div class="space-y-4">
+    @for (project of userProjects(); track project.id) {
+      <app-user-project-group [project]="project" [userId]="user().id" />
+    } @empty {
+      <app-empty-state message="Aucune tâche assignée." />
+    }
+  </div>
+</article>
